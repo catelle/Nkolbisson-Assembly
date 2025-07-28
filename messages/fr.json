@@ -1,0 +1,110 @@
+{
+  "nav": {
+    "home": "ACCUEIL",
+    "about": "À PROPOS DE NOUS",
+    "video": "VIDEO",
+    "ebook": "EBOOK",
+    "emergency": "SECOURS",
+    "marketplace": "MARKETPLACE",
+    "contact": "CONTACT",
+    "donate": "FAIRE UN DON",
+    "services": "SERVICES"
+  },
+  "hero": {
+    "title": "Réalisez vos rêves IELTS",
+    "description": "Conseils d'experts pour réussir l'IELTS et les candidatures universitaires. Construisez votre dossier d'études parfait avec nos méthodes éprouvées.",
+    "signup": "Inscription",
+    "watchVideo": "Découvrez nos produits en une vidéo",
+    "cta": "Commencez votre parcours"
+  },
+  "services": {
+    "title": "Nos Services",
+    "ielts": {
+      "title": "Préparation IELTS",
+      "description": "Formation IELTS complète couvrant les quatre compétences.",
+      "feature1": "Plans d'études personnalisés",
+      "feature2": "Tests blancs et commentaires",
+      "feature3": "Garantie d'amélioration du score"
+    },
+    "university": {
+      "title": "Candidatures Universitaires",
+      "description": "Assistance complète pour les candidatures universitaires.",
+      "feature1": "Stratégie de candidature",
+      "feature2": "Préparation des documents",
+      "feature3": "Gestion des délais"
+    },
+    "dossier": {
+      "title": "Construction de Dossier d'Études",
+      "description": "Assistance professionnelle pour créer des dossiers d'études convaincants.",
+      "feature1": "Rédaction de lettre de motivation",
+      "feature2": "Optimisation du CV",
+      "feature3": "Développement de portfolio"
+    },
+    "scholarship": {
+      "title": "Conseils en Bourses",
+      "description": "Conseils d'experts pour trouver et postuler aux bourses.",
+      "feature1": "Recherche de bourses",
+      "feature2": "Essais de candidature",
+      "feature3": "Préparation aux entretiens"
+    },
+    "visa": {
+      "title": "Assistance Visa",
+      "description": "Support complet pour les demandes de visa étudiant.",
+      "feature1": "Liste de documents",
+      "feature2": "Révision de candidature",
+      "feature3": "Coaching d'entretien"
+    },
+    "mentoring": {
+      "title": "Mentorat 1-à-1",
+      "description": "Sessions de mentorat personnalisées pour votre succès.",
+      "feature1": "Sessions hebdomadaires",
+      "feature2": "Suivi des progrès",
+      "feature3": "Support 24/7"
+    }
+  },
+  "about": {
+    "title": "Pourquoi Nous Choisir?",
+    "description": "Avec plus de 5 ans d'expérience aidant les étudiants à réaliser leurs rêves, nous avons un historique de succès prouvé.",
+    "stat1": "Taux de réussite Elevé",
+    "stat2": "Plusieurs étudiants Aidés",
+    "stat3": "Formateurs Certifiés Experts"
+  },
+  "process": {
+    "title": "Notre Processus",
+    "step1": {
+      "title": "Évaluation Initiale",
+      "description": "Nous évaluons votre niveau actuel et vos objectifs"
+    },
+    "step2": {
+      "title": "Plan Personnalisé",
+      "description": "Créer une stratégie d'études personnalisée"
+    },
+    "step3": {
+      "title": "Mise en Œuvre",
+      "description": "Exécuter le plan avec un support continu"
+    },
+    "step4": {
+      "title": "Succès",
+      "description": "Atteindre vos objectifs IELTS et universitaires"
+    }
+  },
+  "contact": {
+    "title": "Commencez Aujourd'hui",
+    "name": "Nom Complet",
+    "email": "Email",
+    "phone": "Téléphone",
+    "service": "Service Requis",
+    "selectService": "Sélectionnez un service",
+    "message": "Message",
+    "messagePlaceholder": "Parlez-nous de vos objectifs et comment nous pouvons vous aider...",
+    "submit": "Envoyer le message à brendaningha71@gmail.com",
+    "success": "Message envoyé avec succès!"
+  },
+  "footer": {
+    "description": "Votre partenaire de confiance pour le succès IELTS et les candidatures universitaires.",
+    "services": "Services",
+    "contact": "Informations de Contact",
+    "availability": "Disponible 24/7 pour les consultations",
+    "rights": "Tous droits réservés."
+  }
+}

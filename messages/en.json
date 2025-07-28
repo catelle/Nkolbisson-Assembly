@@ -1,0 +1,110 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About Us",
+    "video": "Video",
+    "ebook": "Ebook",
+    "emergency": "Emergency",
+    "marketplace": "Marketplace",
+    "contact": "Contact",
+    "donate": "Donate",
+    "services": "Services"
+  },
+  "hero": {
+    "title": "Achieve Your IELTS Dreams",
+    "description": "Expert guidance for IELTS success and university applications. Build your perfect study dossier with our proven methods.",
+    "signup": "Sign Up",
+    "watchVideo": "Discover our products in a video",
+    "cta": "Start Your Journey"
+  },
+  "services": {
+    "title": "Our Services",
+    "ielts": {
+      "title": "IELTS Preparation",
+      "description": "Comprehensive IELTS training covering all four skills.",
+      "feature1": "Personalized study plans",
+      "feature2": "Mock tests & feedback",
+      "feature3": "Score improvement guarantee"
+    },
+    "university": {
+      "title": "University Applications",
+      "description": "Complete assistance with university applications.",
+      "feature1": "Application strategy",
+      "feature2": "Document preparation",
+      "feature3": "Deadline management"
+    },
+    "dossier": {
+      "title": "Study Dossier Building",
+      "description": "Professional assistance in creating compelling study dossiers.",
+      "feature1": "Personal statement writing",
+      "feature2": "CV optimization",
+      "feature3": "Portfolio development"
+    },
+    "scholarship": {
+      "title": "Scholarship Guidance",
+      "description": "Expert advice on finding and applying for scholarships.",
+      "feature1": "Scholarship research",
+      "feature2": "Application essays",
+      "feature3": "Interview preparation"
+    },
+    "visa": {
+      "title": "Visa Assistance",
+      "description": "Complete support for student visa applications.",
+      "feature1": "Document checklist",
+      "feature2": "Application review",
+      "feature3": "Interview coaching"
+    },
+    "mentoring": {
+      "title": "1-on-1 Mentoring",
+      "description": "Personalized mentoring sessions for your success.",
+      "feature1": "Weekly sessions",
+      "feature2": "Progress tracking",
+      "feature3": "24/7 support"
+    }
+  },
+  "about": {
+    "title": "Why Choose Us?",
+    "description": "With over 5 years of experience helping students achieve their dreams, we have a proven track record of success.",
+    "stat1": "Huge Success Rate",
+    "stat2": "Many Students Helped",
+    "stat3": "Expert Certified Trainers"
+  },
+  "process": {
+    "title": "Our Process",
+    "step1": {
+      "title": "Initial Assessment",
+      "description": "We evaluate your current level and goals"
+    },
+    "step2": {
+      "title": "Customized Plan",
+      "description": "Create a personalized study strategy"
+    },
+    "step3": {
+      "title": "Implementation",
+      "description": "Execute the plan with ongoing support"
+    },
+    "step4": {
+      "title": "Success",
+      "description": "Achieve your IELTS and university goals"
+    }
+  },
+  "contact": {
+    "title": "Get Started Today",
+    "name": "Full Name",
+    "email": "Email",
+    "phone": "Phone",
+    "service": "Service Needed",
+    "selectService": "Select a service",
+    "message": "Message",
+    "messagePlaceholder": "Tell us about your goals and how we can help...",
+    "submit": "Send Message to brendaningha71@gmail.com",
+    "success": "Message sent successfully!"
+  },
+  "footer": {
+    "description": "Your trusted partner for IELTS success and university applications.",
+    "services": "Services",
+    "contact": "Contact Info",
+    "availability": "Available 24/7 for consultations",
+    "rights": "All rights reserved."
+  }
+}
