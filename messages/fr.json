@@ -11,9 +11,9 @@
     "services": "SERVICES"
   },
   "hero": {
-    "title": "Réalisez vos rêves IELTS",
-    "description": "Conseils d'experts pour réussir l'IELTS et les candidatures universitaires. Construisez votre dossier d'études parfait avec nos méthodes éprouvées.",
-    "signup": "Inscription",
+  "title": "IELTS-FADI :IELTS Facile à Digérer",
+  "description": "Beaucoup de formateurs enseignent l’IELTS… mais combien l’ont réellement réussi avec un haut score en tant que francophone ? Mon objectif : vous éviter les erreurs qui m’ont coûté des points, et vous donner les techniques qui MARCHENT.",
+   "signup": "Inscription",
     "watchVideo": "Découvrez nos produits en une vidéo",
     "cta": "Commencez votre parcours"
   },
@@ -22,16 +22,21 @@
     "ielts": {
       "title": "Préparation IELTS",
       "description": "Formation IELTS complète couvrant les quatre compétences.",
-      "feature1": "Plans d'études personnalisés",
-      "feature2": "Tests blancs et commentaires",
-      "feature3": "Garantie d'amélioration du score"
+      "feature1":"Fiche de Diagnostic Initial (Test de Niveau)",
+      "feature2": "Plan de Formation Sur-Mesure",
+      "feature3":"Formation Interactive (Semaines 1 à 4)",
+      "feature4": "Tests blancs et commentaires",
+      "feature5": "Jour J & Suivi Post-Examen"
     },
     "university": {
-      "title": "Candidatures Universitaires",
-      "description": "Assistance complète pour les candidatures universitaires.",
-      "feature1": "Stratégie de candidature",
-      "feature2": "Préparation des documents",
-      "feature3": "Gestion des délais"
+      "title": "Fiche d’Erreurs Typiques",
+      "description": "Liste des erreurs récurrentes à surveiller.",
+      "feature1": "Oubli des articles",
+      "feature2": "Present Perfect mal utilisé",
+      "feature3": "Prononciation : Mots pièges",
+      "feature4": "..."
+
+      
     },
     "dossier": {
       "title": "Construction de Dossier d'Études",

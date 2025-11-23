@@ -2,13 +2,12 @@
 
 import { CheckCircle, Star, Mail, Phone, BookOpen, FileText, Users, Award, Globe } from "lucide-react";
 import { useState } from "react";
-import { useTranslations } from 'next-intl';
-import { useRouter, usePathname } from 'next/navigation';
+
+import Link from 'next/link';
+import { useTranslations } from "next-intl";
 
 export default function IELTSService() {
   const t = useTranslations();
-  const router = useRouter();
-  const pathname = usePathname();
   
   const [formData, setFormData] = useState({
     name: '',
@@ -17,11 +16,6 @@ export default function IELTSService() {
     service: '',
     message: ''
   });
-
-  const switchLanguage = (locale: string) => {
-    const newPath = pathname.replace(/^\/[a-z]{2}/, `/${locale}`);
-    router.push(newPath);
-  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -42,24 +36,34 @@ export default function IELTSService() {
             </nav>
             <div className="flex items-center gap-2">
               <Globe className="w-4 h-4" />
-              <button onClick={() => switchLanguage('fr')} className="hover:text-blue-200">FR</button>
+              <Link href="/fr/ielts-service" className="hover:text-blue-200">FR</Link>
               <span>|</span>
-              <button onClick={() => switchLanguage('en')} className="hover:text-blue-200">EN</button>
+              <Link href="/en/ielts-service" className="hover:text-blue-200">EN</Link>
             </div>
           </div>
         </div>
       </header>
 
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-blue-900 to-blue-700 text-white py-20">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-5xl font-bold mb-6">{t('hero.title')}</h2>
-          <p className="text-xl mb-8 max-w-3xl mx-auto">
-            {t('hero.description')}
-          </p>
-          <button className="bg-orange-500 hover:bg-orange-600 px-8 py-4 rounded-lg text-lg font-semibold">
-            {t('hero.cta')}
-          </button>
+      <section className="bg-gradient-to-r from-blue-900 to-blue-700 text-white py-20 relative overflow-hidden">
+        <div className="absolute inset-0 opacity-10">
+          <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=1200&h=600&fit=crop" alt="Students studying" className="w-full h-full object-cover" />
+        </div>
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <div className="text-center md:text-left">
+              <h2 className="text-4xl md:text-5xl font-bold mb-6">{t('hero.title')}</h2>
+              <p className="text-xl mb-8">
+                {t('hero.description')}
+              </p>
+              <button className="bg-orange-500 hover:bg-orange-600 px-8 py-4 rounded-lg text-lg font-semibold transition-colors">
+                {t('hero.cta')}
+              </button>
+            </div>
+            <div className="hidden md:block">
+              <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=500&h=400&fit=crop" alt="Happy family with student" className="rounded-lg shadow-2xl" />
+            </div>
+          </div>
         </div>
       </section>
 
@@ -68,26 +72,32 @@ export default function IELTSService() {
         <div className="container mx-auto px-4">
           <h2 className="text-4xl font-bold text-center mb-16">{t('services.title')}</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div className="bg-white p-8 rounded-lg shadow-lg">
-              <BookOpen className="w-12 h-12 text-blue-600 mb-4" />
-              <h3 className="text-2xl font-bold mb-4">{t('services.ielts.title')}</h3>
-              <p className="text-gray-600 mb-4">{t('services.ielts.description')}</p>
-              <ul className="space-y-2">
-                <li className="flex items-center"><CheckCircle className="w-5 h-5 text-green-500 mr-2" />{t('services.ielts.feature1')}</li>
-                <li className="flex items-center"><CheckCircle className="w-5 h-5 text-green-500 mr-2" />{t('services.ielts.feature2')}</li>
-                <li className="flex items-center"><CheckCircle className="w-5 h-5 text-green-500 mr-2" />{t('services.ielts.feature3')}</li>
-              </ul>
+            <div className="bg-white rounded-lg shadow-lg overflow-hidden">
+              <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=200&fit=crop" alt="IELTS preparation" className="w-full h-48 object-cover" />
+              <div className="p-8">
+                <BookOpen className="w-12 h-12 text-blue-600 mb-4" />
+                <h3 className="text-2xl font-bold mb-4">{t('services.ielts.title')}</h3>
+                <p className="text-gray-600 mb-4">{t('services.ielts.description')}</p>
+                <ul className="space-y-2">
+                  <li className="flex items-center"><CheckCircle className="w-5 h-5 text-green-500 mr-2" />{t('services.ielts.feature1')}</li>
+                  <li className="flex items-center"><CheckCircle className="w-5 h-5 text-green-500 mr-2" />{t('services.ielts.feature2')}</li>
+                  <li className="flex items-center"><CheckCircle className="w-5 h-5 text-green-500 mr-2" />{t('services.ielts.feature3')}</li>
+                </ul>
+              </div>
             </div>
 
-            <div className="bg-white p-8 rounded-lg shadow-lg">
-              <FileText className="w-12 h-12 text-blue-600 mb-4" />
-              <h3 className="text-2xl font-bold mb-4">{t('services.university.title')}</h3>
-              <p className="text-gray-600 mb-4">{t('services.university.description')}</p>
-              <ul className="space-y-2">
-                <li className="flex items-center"><CheckCircle className="w-5 h-5 text-green-500 mr-2" />{t('services.university.feature1')}</li>
-                <li className="flex items-center"><CheckCircle className="w-5 h-5 text-green-500 mr-2" />{t('services.university.feature2')}</li>
-                <li className="flex items-center"><CheckCircle className="w-5 h-5 text-green-500 mr-2" />{t('services.university.feature3')}</li>
-              </ul>
+            <div className="bg-white rounded-lg shadow-lg overflow-hidden">
+              <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=400&h=200&fit=crop" alt="University campus" className="w-full h-48 object-cover" />
+              <div className="p-8">
+                <FileText className="w-12 h-12 text-blue-600 mb-4" />
+                <h3 className="text-2xl font-bold mb-4">{t('services.university.title')}</h3>
+                <p className="text-gray-600 mb-4">{t('services.university.description')}</p>
+                <ul className="space-y-2">
+                  <li className="flex items-center"><CheckCircle className="w-5 h-5 text-green-500 mr-2" />{t('services.university.feature1')}</li>
+                  <li className="flex items-center"><CheckCircle className="w-5 h-5 text-green-500 mr-2" />{t('services.university.feature2')}</li>
+                  <li className="flex items-center"><CheckCircle className="w-5 h-5 text-green-500 mr-2" />{t('services.university.feature3')}</li>
+                </ul>
+              </div>
             </div>
 
             <div className="bg-white p-8 rounded-lg shadow-lg">
@@ -141,7 +151,10 @@ export default function IELTSService() {
       <section id="about" className="py-20">
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div>
+            <div className="order-2 md:order-1">
+              <img src="https://images.unsplash.com/photo-1609220136736-443140cffec6?w=600&h=400&fit=crop" alt="Happy family celebrating success" className="rounded-lg shadow-lg" />
+            </div>
+            <div className="order-1 md:order-2">
               <h2 className="text-4xl font-bold mb-6">{t('about.title')}</h2>
               <p className="text-lg text-gray-600 mb-6">
                 {t('about.description')}

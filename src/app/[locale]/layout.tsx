@@ -1,18 +1,7 @@
 import type { Metadata } from "next";
-import { Nunito, Nunito_Sans } from "next/font/google";
 import {NextIntlClientProvider} from 'next-intl';
 import {getMessages} from 'next-intl/server';
 import "./globals.css";
-
-const nunito = Nunito({
-  variable: "--font-nunito",
-  subsets: ["latin"],
-});
-
-const nunitoSans = Nunito_Sans({
-  variable: "--font-nunito-sans",
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
   title: "IELTS-FADI - Your Success Partner",
@@ -31,9 +20,7 @@ export default async function RootLayout({
 
   return (
     <html lang={locale}>
-      <body
-        className={`${nunito.variable} ${nunitoSans.variable} antialiased`}
-      >
+      <body className="antialiased font-sans">
         <NextIntlClientProvider messages={messages}>
           {children}
         </NextIntlClientProvider>
