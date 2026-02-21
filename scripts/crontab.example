@@ -1,0 +1,5 @@
+# Keep MongoDB and Supabase alive by pinging the health endpoint every 5 minutes
+*/5 * * * * curl -s https://your-domain.com/api/health > /dev/null 2>&1
+
+# Alternative: Run the keep-alive script
+# */5 * * * * cd /path/to/IeltsFadi && npm run keep-alive > /dev/null 2>&1
