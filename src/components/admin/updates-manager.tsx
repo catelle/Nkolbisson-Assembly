@@ -36,6 +36,7 @@ export default function UpdatesManager({ locale }: { locale: string }) {
   const [items, setItems] = useState<UpdateDoc[]>([]);
   const [current, setCurrent] = useState<UpdateDoc>(emptyUpdate);
   const [editingId, setEditingId] = useState<string | null>(null);
+  const [showForm, setShowForm] = useState(false);
 
   const load = async () => {
     const res = await fetch("/api/updates", { cache: "no-store" });
@@ -80,6 +81,7 @@ export default function UpdatesManager({ locale }: { locale: string }) {
 
     setCurrent(emptyUpdate);
     setEditingId(null);
+    setShowForm(false);
     load();
   };
 
@@ -95,6 +97,7 @@ export default function UpdatesManager({ locale }: { locale: string }) {
       status: item.status
     });
     setEditingId(item._id || null);
+    setShowForm(true);
   };
 
   const handleDelete = async (id?: string) => {
@@ -105,16 +108,89 @@ export default function UpdatesManager({ locale }: { locale: string }) {
 
   return (
     <div className="space-y-6">
-      <form onSubmit={handleSubmit} className="rounded-3xl border border-white/10 bg-sky-900/70 p-6">
-        <div className="grid gap-4 md:grid-cols-2">
+      <div className="rounded-3xl border border-white/10 bg-sky-900/70 p-6">
+        <div className="flex items-center justify-between">
           <div>
-            <label className="text-xs uppercase tracking-[0.2em] text-sky-300">Titre (FR)</label>
-            <input
-              value={current.title.fr}
-              onChange={(event) => setCurrent({ ...current, title: { ...current.title, fr: event.target.value } })}
-              className="mt-2 w-full rounded-2xl border border-white/10 bg-sky-900 px-3 py-2 text-sm text-white"
-            />
+            <p className="text-xs uppercase tracking-[0.3em] text-sky-400">{copy.admin.updates.label}</p>
+            <h2 className="mt-2 text-2xl font-semibold text-white">{copy.admin.updates.title}</h2>
           </div>
+          <button
+            type="button"
+            onClick={() => {
+              if (showForm) {
+                setShowForm(false);
+                setEditingId(null);
+                setCurrent(emptyUpdate);
+                return;
+              }
+              setEditingId(null);
+              setCurrent(emptyUpdate);
+              setShowForm(true);
+            }}
+            className="rounded-full bg-yellow-500 px-4 py-2 text-xs font-semibold text-sky-950"
+          >
+            {showForm ? "Close form" : copy.admin.updates.add}
+          </button>
+        </div>
+      </div>
+
+      <div className="space-y-4">
+        {items.map((item) => (
+          <div key={item._id} className="rounded-3xl border border-white/10 bg-sky-900/60 p-5">
+            <div className="flex flex-wrap items-center justify-between gap-4">
+              <div>
+                <p className="text-xs uppercase tracking-[0.3em] text-sky-400">{item.tags?.fr?.join(" - ")}</p>
+                <h3 className="mt-1 text-lg font-semibold text-white">{item.title?.fr}</h3>
+                <p className="mt-2 text-sm text-sky-300">{item.excerpt?.fr}</p>
+              </div>
+              <div className="flex gap-2">
+                <button
+                  type="button"
+                  onClick={() => handleEdit(item)}
+                  className="rounded-full border border-white/20 px-3 py-1 text-xs text-white"
+                >
+                  {copy.admin.updates.edit}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleDelete(item._id)}
+                  className="rounded-full border border-white/20 px-3 py-1 text-xs text-white"
+                >
+                  {copy.admin.updates.remove}
+                </button>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {showForm ? (
+        <form onSubmit={handleSubmit} className="rounded-3xl border border-white/10 bg-sky-900/70 p-6">
+          <div className="flex items-center justify-between">
+            <p className="text-xs uppercase tracking-[0.3em] text-sky-400">
+              {editingId ? copy.admin.updates.edit : copy.admin.updates.add}
+            </p>
+            <button
+              type="button"
+              onClick={() => {
+                setShowForm(false);
+                setEditingId(null);
+                setCurrent(emptyUpdate);
+              }}
+              className="rounded-full border border-white/20 px-4 py-2 text-xs text-white"
+            >
+              Close
+            </button>
+          </div>
+          <div className="mt-4 grid gap-4 md:grid-cols-2">
+            <div>
+              <label className="text-xs uppercase tracking-[0.2em] text-sky-300">Titre (FR)</label>
+              <input
+                value={current.title.fr}
+                onChange={(event) => setCurrent({ ...current, title: { ...current.title, fr: event.target.value } })}
+                className="mt-2 w-full rounded-2xl border border-white/10 bg-sky-900 px-3 py-2 text-sm text-white"
+              />
+            </div>
           <div>
             <label className="text-xs uppercase tracking-[0.2em] text-sky-300">Title (EN)</label>
             <input
@@ -216,55 +292,26 @@ export default function UpdatesManager({ locale }: { locale: string }) {
               className="mt-2 w-full rounded-2xl border border-white/10 bg-sky-900 px-3 py-2 text-sm text-white"
             />
           </div>
-        </div>
-        <div className="mt-6 flex gap-3">
-          <button className="rounded-full bg-yellow-500 px-4 py-2 text-xs font-semibold text-sky-950" type="submit">
-            {copy.admin.updates.add}
-          </button>
-          {editingId ? (
-            <button
-              type="button"
-              onClick={() => {
-                setEditingId(null);
-                setCurrent(emptyUpdate);
-              }}
-              className="rounded-full border border-white/20 px-4 py-2 text-xs text-white"
-            >
-              Reset
-            </button>
-          ) : null}
-        </div>
-      </form>
-
-      <div className="space-y-4">
-        {items.map((item) => (
-          <div key={item._id} className="rounded-3xl border border-white/10 bg-sky-900/60 p-5">
-            <div className="flex flex-wrap items-center justify-between gap-4">
-              <div>
-                <p className="text-xs uppercase tracking-[0.3em] text-sky-400">{item.tags?.fr?.join(" - ")}</p>
-                <h3 className="mt-1 text-lg font-semibold text-white">{item.title?.fr}</h3>
-                <p className="mt-2 text-sm text-sky-300">{item.excerpt?.fr}</p>
-              </div>
-              <div className="flex gap-2">
-                <button
-                  type="button"
-                  onClick={() => handleEdit(item)}
-                  className="rounded-full border border-white/20 px-3 py-1 text-xs text-white"
-                >
-                  {copy.admin.updates.edit}
-                </button>
-                <button
-                  type="button"
-                  onClick={() => handleDelete(item._id)}
-                  className="rounded-full border border-white/20 px-3 py-1 text-xs text-white"
-                >
-                  {copy.admin.updates.remove}
-                </button>
-              </div>
-            </div>
           </div>
-        ))}
-      </div>
+          <div className="mt-6 flex gap-3">
+            <button className="rounded-full bg-yellow-500 px-4 py-2 text-xs font-semibold text-sky-950" type="submit">
+              {copy.admin.updates.add}
+            </button>
+            {editingId ? (
+              <button
+                type="button"
+                onClick={() => {
+                  setEditingId(null);
+                  setCurrent(emptyUpdate);
+                }}
+                className="rounded-full border border-white/20 px-4 py-2 text-xs text-white"
+              >
+                Reset
+              </button>
+            ) : null}
+          </div>
+        </form>
+      ) : null}
     </div>
   );
 }

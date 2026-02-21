@@ -37,6 +37,7 @@ export default function EventsManager({ locale }: { locale: string }) {
   const [current, setCurrent] = useState<EventDoc>(emptyEvent);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const [showForm, setShowForm] = useState(false);
 
   const load = async () => {
     const res = await fetch("/api/events", { cache: "no-store" });
@@ -77,6 +78,7 @@ export default function EventsManager({ locale }: { locale: string }) {
     setCurrent(emptyEvent);
     setEditingId(null);
     setLoading(false);
+    setShowForm(false);
     load();
   };
 
@@ -92,6 +94,7 @@ export default function EventsManager({ locale }: { locale: string }) {
       status: item.status
     });
     setEditingId(item._id || null);
+    setShowForm(true);
   };
 
   const handleDelete = async (id?: string) => {
@@ -102,131 +105,31 @@ export default function EventsManager({ locale }: { locale: string }) {
 
   return (
     <div className="space-y-6">
-      <form onSubmit={handleSubmit} className="rounded-3xl border border-white/10 bg-sky-900/70 p-6">
-        <div className="grid gap-4 md:grid-cols-2">
+      <div className="rounded-3xl border border-white/10 bg-sky-900/70 p-6">
+        <div className="flex items-center justify-between">
           <div>
-            <label className="text-xs uppercase tracking-[0.2em] text-sky-300">{copy.admin.events.label} (FR)</label>
-            <input
-              value={current.title.fr}
-              onChange={(event) => setCurrent({ ...current, title: { ...current.title, fr: event.target.value } })}
-              className="mt-2 w-full rounded-2xl border border-white/10 bg-sky-900 px-3 py-2 text-sm text-white"
-            />
+            <p className="text-xs uppercase tracking-[0.3em] text-sky-400">{copy.admin.events.label}</p>
+            <h2 className="mt-2 text-2xl font-semibold text-white">{copy.admin.events.title}</h2>
           </div>
-          <div>
-            <label className="text-xs uppercase tracking-[0.2em] text-sky-300">{copy.admin.events.label} (EN)</label>
-            <input
-              value={current.title.en}
-              onChange={(event) => setCurrent({ ...current, title: { ...current.title, en: event.target.value } })}
-              className="mt-2 w-full rounded-2xl border border-white/10 bg-sky-900 px-3 py-2 text-sm text-white"
-            />
-          </div>
-          <div>
-            <label className="text-xs uppercase tracking-[0.2em] text-sky-300">Description (FR)</label>
-            <textarea
-              value={current.description.fr}
-              onChange={(event) =>
-                setCurrent({ ...current, description: { ...current.description, fr: event.target.value } })
-              }
-              className="mt-2 w-full rounded-2xl border border-white/10 bg-sky-900 px-3 py-2 text-sm text-white"
-            />
-          </div>
-          <div>
-            <label className="text-xs uppercase tracking-[0.2em] text-sky-300">Description (EN)</label>
-            <textarea
-              value={current.description.en}
-              onChange={(event) =>
-                setCurrent({ ...current, description: { ...current.description, en: event.target.value } })
-              }
-              className="mt-2 w-full rounded-2xl border border-white/10 bg-sky-900 px-3 py-2 text-sm text-white"
-            />
-          </div>
-          <div>
-            <label className="text-xs uppercase tracking-[0.2em] text-sky-300">Lieu (FR)</label>
-            <input
-              value={current.location.fr}
-              onChange={(event) => setCurrent({ ...current, location: { ...current.location, fr: event.target.value } })}
-              className="mt-2 w-full rounded-2xl border border-white/10 bg-sky-900 px-3 py-2 text-sm text-white"
-            />
-          </div>
-          <div>
-            <label className="text-xs uppercase tracking-[0.2em] text-sky-300">Location (EN)</label>
-            <input
-              value={current.location.en}
-              onChange={(event) => setCurrent({ ...current, location: { ...current.location, en: event.target.value } })}
-              className="mt-2 w-full rounded-2xl border border-white/10 bg-sky-900 px-3 py-2 text-sm text-white"
-            />
-          </div>
-          <div>
-            <label className="text-xs uppercase tracking-[0.2em] text-sky-300">Ministere (FR)</label>
-            <input
-              value={current.ministry.fr}
-              onChange={(event) => setCurrent({ ...current, ministry: { ...current.ministry, fr: event.target.value } })}
-              className="mt-2 w-full rounded-2xl border border-white/10 bg-sky-900 px-3 py-2 text-sm text-white"
-            />
-          </div>
-          <div>
-            <label className="text-xs uppercase tracking-[0.2em] text-sky-300">Ministry (EN)</label>
-            <input
-              value={current.ministry.en}
-              onChange={(event) => setCurrent({ ...current, ministry: { ...current.ministry, en: event.target.value } })}
-              className="mt-2 w-full rounded-2xl border border-white/10 bg-sky-900 px-3 py-2 text-sm text-white"
-            />
-          </div>
-          <div>
-            <label className="text-xs uppercase tracking-[0.2em] text-sky-300">Start</label>
-            <input
-              type="datetime-local"
-              value={current.startAt}
-              onChange={(event) => setCurrent({ ...current, startAt: event.target.value })}
-              className="mt-2 w-full rounded-2xl border border-white/10 bg-sky-900 px-3 py-2 text-sm text-white"
-            />
-          </div>
-          <div>
-            <label className="text-xs uppercase tracking-[0.2em] text-sky-300">End</label>
-            <input
-              type="datetime-local"
-              value={current.endAt}
-              onChange={(event) => setCurrent({ ...current, endAt: event.target.value })}
-              className="mt-2 w-full rounded-2xl border border-white/10 bg-sky-900 px-3 py-2 text-sm text-white"
-            />
-          </div>
-          <div className="md:col-span-2">
-            <ImageUploadField
-              label="Image"
-              value={current.image}
-              onChange={(value) => setCurrent({ ...current, image: value })}
-            />
-          </div>
-          <div>
-            <label className="text-xs uppercase tracking-[0.2em] text-sky-300">Status</label>
-            <select
-              value={current.status}
-              onChange={(event) => setCurrent({ ...current, status: event.target.value as "draft" | "published" })}
-              className="mt-2 w-full rounded-2xl border border-white/10 bg-sky-900 px-3 py-2 text-sm text-white"
-            >
-              <option value="draft">Draft</option>
-              <option value="published">Published</option>
-            </select>
-          </div>
-        </div>
-        <div className="mt-6 flex gap-3">
-          <button className="rounded-full bg-yellow-500 px-4 py-2 text-xs font-semibold text-sky-950" type="submit">
-            {loading ? "..." : copy.admin.events.add}
-          </button>
-          {editingId ? (
-            <button
-              type="button"
-              onClick={() => {
+          <button
+            type="button"
+            onClick={() => {
+              if (showForm) {
+                setShowForm(false);
                 setEditingId(null);
                 setCurrent(emptyEvent);
-              }}
-              className="rounded-full border border-white/20 px-4 py-2 text-xs text-white"
-            >
-              Reset
-            </button>
-          ) : null}
+                return;
+              }
+              setEditingId(null);
+              setCurrent(emptyEvent);
+              setShowForm(true);
+            }}
+            className="rounded-full bg-yellow-500 px-4 py-2 text-xs font-semibold text-sky-950"
+          >
+            {showForm ? "Close form" : copy.admin.events.add}
+          </button>
         </div>
-      </form>
+      </div>
 
       <div className="space-y-4">
         {events.map((item) => (
@@ -257,6 +160,160 @@ export default function EventsManager({ locale }: { locale: string }) {
           </div>
         ))}
       </div>
+
+      {showForm ? (
+        <form onSubmit={handleSubmit} className="rounded-3xl border border-white/10 bg-sky-900/70 p-6">
+          <div className="flex items-center justify-between">
+            <p className="text-xs uppercase tracking-[0.3em] text-sky-400">
+              {editingId ? copy.admin.events.edit : copy.admin.events.add}
+            </p>
+            <button
+              type="button"
+              onClick={() => {
+                setShowForm(false);
+                setEditingId(null);
+                setCurrent(emptyEvent);
+              }}
+              className="rounded-full border border-white/20 px-4 py-2 text-xs text-white"
+            >
+              Close
+            </button>
+          </div>
+          <div className="mt-4 grid gap-4 md:grid-cols-2">
+            <div>
+              <label className="text-xs uppercase tracking-[0.2em] text-sky-300">{copy.admin.events.label} (FR)</label>
+              <input
+                value={current.title.fr}
+                onChange={(event) => setCurrent({ ...current, title: { ...current.title, fr: event.target.value } })}
+                className="mt-2 w-full rounded-2xl border border-white/10 bg-sky-900 px-3 py-2 text-sm text-white"
+              />
+            </div>
+            <div>
+              <label className="text-xs uppercase tracking-[0.2em] text-sky-300">{copy.admin.events.label} (EN)</label>
+              <input
+                value={current.title.en}
+                onChange={(event) => setCurrent({ ...current, title: { ...current.title, en: event.target.value } })}
+                className="mt-2 w-full rounded-2xl border border-white/10 bg-sky-900 px-3 py-2 text-sm text-white"
+              />
+            </div>
+            <div>
+              <label className="text-xs uppercase tracking-[0.2em] text-sky-300">Description (FR)</label>
+              <textarea
+                value={current.description.fr}
+                onChange={(event) =>
+                  setCurrent({ ...current, description: { ...current.description, fr: event.target.value } })
+                }
+                className="mt-2 w-full rounded-2xl border border-white/10 bg-sky-900 px-3 py-2 text-sm text-white"
+              />
+            </div>
+            <div>
+              <label className="text-xs uppercase tracking-[0.2em] text-sky-300">Description (EN)</label>
+              <textarea
+                value={current.description.en}
+                onChange={(event) =>
+                  setCurrent({ ...current, description: { ...current.description, en: event.target.value } })
+                }
+                className="mt-2 w-full rounded-2xl border border-white/10 bg-sky-900 px-3 py-2 text-sm text-white"
+              />
+            </div>
+            <div>
+              <label className="text-xs uppercase tracking-[0.2em] text-sky-300">Lieu (FR)</label>
+              <input
+                value={current.location.fr}
+                onChange={(event) =>
+                  setCurrent({ ...current, location: { ...current.location, fr: event.target.value } })
+                }
+                className="mt-2 w-full rounded-2xl border border-white/10 bg-sky-900 px-3 py-2 text-sm text-white"
+              />
+            </div>
+            <div>
+              <label className="text-xs uppercase tracking-[0.2em] text-sky-300">Location (EN)</label>
+              <input
+                value={current.location.en}
+                onChange={(event) =>
+                  setCurrent({ ...current, location: { ...current.location, en: event.target.value } })
+                }
+                className="mt-2 w-full rounded-2xl border border-white/10 bg-sky-900 px-3 py-2 text-sm text-white"
+              />
+            </div>
+            <div>
+              <label className="text-xs uppercase tracking-[0.2em] text-sky-300">Ministere (FR)</label>
+              <input
+                value={current.ministry.fr}
+                onChange={(event) =>
+                  setCurrent({ ...current, ministry: { ...current.ministry, fr: event.target.value } })
+                }
+                className="mt-2 w-full rounded-2xl border border-white/10 bg-sky-900 px-3 py-2 text-sm text-white"
+              />
+            </div>
+            <div>
+              <label className="text-xs uppercase tracking-[0.2em] text-sky-300">Ministry (EN)</label>
+              <input
+                value={current.ministry.en}
+                onChange={(event) =>
+                  setCurrent({ ...current, ministry: { ...current.ministry, en: event.target.value } })
+                }
+                className="mt-2 w-full rounded-2xl border border-white/10 bg-sky-900 px-3 py-2 text-sm text-white"
+              />
+            </div>
+            <div>
+              <label className="text-xs uppercase tracking-[0.2em] text-sky-300">Start</label>
+              <input
+                type="datetime-local"
+                value={current.startAt}
+                onChange={(event) => setCurrent({ ...current, startAt: event.target.value })}
+                className="mt-2 w-full rounded-2xl border border-white/10 bg-sky-900 px-3 py-2 text-sm text-white"
+              />
+            </div>
+            <div>
+              <label className="text-xs uppercase tracking-[0.2em] text-sky-300">End</label>
+              <input
+                type="datetime-local"
+                value={current.endAt}
+                onChange={(event) => setCurrent({ ...current, endAt: event.target.value })}
+                className="mt-2 w-full rounded-2xl border border-white/10 bg-sky-900 px-3 py-2 text-sm text-white"
+              />
+            </div>
+            <div className="md:col-span-2">
+              <ImageUploadField
+                label="Image"
+                value={current.image}
+                onChange={(value) => setCurrent({ ...current, image: value })}
+              />
+            </div>
+            <div>
+              <label className="text-xs uppercase tracking-[0.2em] text-sky-300">Status</label>
+              <select
+                value={current.status}
+                onChange={(event) =>
+                  setCurrent({ ...current, status: event.target.value as "draft" | "published" })
+                }
+                className="mt-2 w-full rounded-2xl border border-white/10 bg-sky-900 px-3 py-2 text-sm text-white"
+              >
+                <option value="draft">Draft</option>
+                <option value="published">Published</option>
+              </select>
+            </div>
+          </div>
+          <div className="mt-6 flex gap-3">
+            <button className="rounded-full bg-yellow-500 px-4 py-2 text-xs font-semibold text-sky-950" type="submit">
+              {loading ? "..." : copy.admin.events.add}
+            </button>
+            {editingId ? (
+              <button
+                type="button"
+                onClick={() => {
+                  setEditingId(null);
+                  setCurrent(emptyEvent);
+                }}
+                className="rounded-full border border-white/20 px-4 py-2 text-xs text-white"
+              >
+                Reset
+              </button>
+            ) : null}
+          </div>
+        </form>
+      ) : null}
     </div>
   );
 }

@@ -1,12 +1,43 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { getCopy } from "@/lib/copy";
+
+type MediaFile = {
+  name: string;
+  url: string;
+  createdAt: string;
+};
 
 export default function MediaManager({ locale }: { locale: string }) {
   const copy = getCopy(locale);
-  const [uploads, setUploads] = useState<string[]>([]);
+  const [uploads, setUploads] = useState<MediaFile[]>([]);
   const [loading, setLoading] = useState(false);
+  const [loadingList, setLoadingList] = useState(false);
+  const [error, setError] = useState("");
+
+  const loadMedia = async () => {
+    setLoadingList(true);
+    setError("");
+    try {
+      const res = await fetch("/api/media");
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data?.error || "Failed to load media");
+      }
+      const data = await res.json();
+      setUploads(Array.isArray(data) ? data : []);
+    } catch (err) {
+      const message = err instanceof Error ? err.message : "Failed to load media";
+      setError(message);
+    } finally {
+      setLoadingList(false);
+    }
+  };
+
+  useEffect(() => {
+    loadMedia();
+  }, []);
 
   const handleUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -16,16 +47,26 @@ export default function MediaManager({ locale }: { locale: string }) {
     formData.append("file", file);
     setLoading(true);
 
-    const res = await fetch("/api/media/upload", {
-      method: "POST",
-      body: formData
-    });
+    try {
+      const res = await fetch("/api/media/upload", {
+        method: "POST",
+        body: formData
+      });
 
-    setLoading(false);
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data?.error || "Upload failed");
+      }
 
-    if (!res.ok) return;
-    const data = await res.json();
-    setUploads((prev) => [data.url, ...prev]);
+      await res.json();
+      await loadMedia();
+    } catch (err) {
+      const message = err instanceof Error ? err.message : "Upload failed";
+      setError(message);
+    } finally {
+      setLoading(false);
+      event.target.value = "";
+    }
   };
 
   return (
@@ -43,16 +84,26 @@ export default function MediaManager({ locale }: { locale: string }) {
         </div>
       </div>
 
-      {uploads.length === 0 ? (
+      {error ? (
+        <div className="rounded-3xl border border-white/10 bg-yellow-500/10 p-6 text-sm text-yellow-200">
+          {error}
+        </div>
+      ) : null}
+
+      {loadingList ? (
+        <div className="rounded-3xl border border-white/10 bg-sky-900/60 p-6 text-sm text-sky-200">
+          Loading media...
+        </div>
+      ) : uploads.length === 0 ? (
         <div className="rounded-3xl border border-white/10 bg-sky-900/60 p-6 text-sm text-sky-200">
           Upload images to Supabase storage. The generated URLs will appear here.
         </div>
       ) : (
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {uploads.map((url) => (
-            <div key={url} className="rounded-3xl border border-white/10 bg-sky-900/60 p-4">
-              <img src={url} alt="Upload" className="h-40 w-full rounded-2xl object-cover" />
-              <p className="mt-3 break-all text-xs text-sky-300">{url}</p>
+          {uploads.map((file) => (
+            <div key={file.name} className="rounded-3xl border border-white/10 bg-sky-900/60 p-4">
+              <img src={file.url} alt={file.name} className="h-40 w-full rounded-2xl object-cover" />
+              <p className="mt-3 break-all text-xs text-sky-300">{file.url}</p>
             </div>
           ))}
         </div>

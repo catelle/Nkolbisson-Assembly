@@ -32,6 +32,7 @@ export default function MinistriesManager({ locale }: { locale: string }) {
   const [items, setItems] = useState<MinistryDoc[]>([]);
   const [current, setCurrent] = useState<MinistryDoc>(emptyMinistry);
   const [editingId, setEditingId] = useState<string | null>(null);
+  const [showForm, setShowForm] = useState(false);
 
   const load = async () => {
     const res = await fetch("/api/ministries", { cache: "no-store" });
@@ -66,6 +67,7 @@ export default function MinistriesManager({ locale }: { locale: string }) {
 
     setCurrent(emptyMinistry);
     setEditingId(null);
+    setShowForm(false);
     load();
   };
 
@@ -79,6 +81,7 @@ export default function MinistriesManager({ locale }: { locale: string }) {
       image: item.image || ""
     });
     setEditingId(item._id || null);
+    setShowForm(true);
   };
 
   const handleDelete = async (id?: string) => {
@@ -89,122 +92,31 @@ export default function MinistriesManager({ locale }: { locale: string }) {
 
   return (
     <div className="space-y-6">
-      <form onSubmit={handleSubmit} className="rounded-3xl border border-white/10 bg-sky-900/70 p-6">
-        <div className="grid gap-4 md:grid-cols-2">
+      <div className="rounded-3xl border border-white/10 bg-sky-900/70 p-6">
+        <div className="flex items-center justify-between">
           <div>
-            <label className="text-xs uppercase tracking-[0.2em] text-sky-300">{copy.admin.ministries.label} (FR)</label>
-            <input
-              value={current.name.fr}
-              onChange={(event) => setCurrent({ ...current, name: { ...current.name, fr: event.target.value } })}
-              className="mt-2 w-full rounded-2xl border border-white/10 bg-sky-900 px-3 py-2 text-sm text-white"
-            />
+            <p className="text-xs uppercase tracking-[0.3em] text-sky-400">{copy.admin.ministries.label}</p>
+            <h2 className="mt-2 text-2xl font-semibold text-white">{copy.admin.ministries.title}</h2>
           </div>
-          <div>
-            <label className="text-xs uppercase tracking-[0.2em] text-sky-300">{copy.admin.ministries.label} (EN)</label>
-            <input
-              value={current.name.en}
-              onChange={(event) => setCurrent({ ...current, name: { ...current.name, en: event.target.value } })}
-              className="mt-2 w-full rounded-2xl border border-white/10 bg-sky-900 px-3 py-2 text-sm text-white"
-            />
-          </div>
-          <div>
-            <label className="text-xs uppercase tracking-[0.2em] text-sky-300">Resume (FR)</label>
-            <textarea
-              value={current.summary.fr}
-              onChange={(event) => setCurrent({ ...current, summary: { ...current.summary, fr: event.target.value } })}
-              className="mt-2 w-full rounded-2xl border border-white/10 bg-sky-900 px-3 py-2 text-sm text-white"
-            />
-          </div>
-          <div>
-            <label className="text-xs uppercase tracking-[0.2em] text-sky-300">Summary (EN)</label>
-            <textarea
-              value={current.summary.en}
-              onChange={(event) => setCurrent({ ...current, summary: { ...current.summary, en: event.target.value } })}
-              className="mt-2 w-full rounded-2xl border border-white/10 bg-sky-900 px-3 py-2 text-sm text-white"
-            />
-          </div>
-          <div>
-            <label className="text-xs uppercase tracking-[0.2em] text-sky-300">{copy.admin.ministries.leader} (FR)</label>
-            <input
-              value={current.leader.fr}
-              onChange={(event) => setCurrent({ ...current, leader: { ...current.leader, fr: event.target.value } })}
-              className="mt-2 w-full rounded-2xl border border-white/10 bg-sky-900 px-3 py-2 text-sm text-white"
-            />
-          </div>
-          <div>
-            <label className="text-xs uppercase tracking-[0.2em] text-sky-300">Leader (EN)</label>
-            <input
-              value={current.leader.en}
-              onChange={(event) => setCurrent({ ...current, leader: { ...current.leader, en: event.target.value } })}
-              className="mt-2 w-full rounded-2xl border border-white/10 bg-sky-900 px-3 py-2 text-sm text-white"
-            />
-          </div>
-          <div>
-            <label className="text-xs uppercase tracking-[0.2em] text-sky-300">Horaire (FR)</label>
-            <input
-              value={current.meetingTime.fr}
-              onChange={(event) =>
-                setCurrent({ ...current, meetingTime: { ...current.meetingTime, fr: event.target.value } })
-              }
-              className="mt-2 w-full rounded-2xl border border-white/10 bg-sky-900 px-3 py-2 text-sm text-white"
-            />
-          </div>
-          <div>
-            <label className="text-xs uppercase tracking-[0.2em] text-sky-300">Meeting (EN)</label>
-            <input
-              value={current.meetingTime.en}
-              onChange={(event) =>
-                setCurrent({ ...current, meetingTime: { ...current.meetingTime, en: event.target.value } })
-              }
-              className="mt-2 w-full rounded-2xl border border-white/10 bg-sky-900 px-3 py-2 text-sm text-white"
-            />
-          </div>
-          <div className="md:col-span-2">
-            <label className="text-xs uppercase tracking-[0.2em] text-sky-300">Update (FR)</label>
-            <textarea
-              value={current.latestUpdate.fr}
-              onChange={(event) =>
-                setCurrent({ ...current, latestUpdate: { ...current.latestUpdate, fr: event.target.value } })
-              }
-              className="mt-2 w-full rounded-2xl border border-white/10 bg-sky-900 px-3 py-2 text-sm text-white"
-            />
-          </div>
-          <div className="md:col-span-2">
-            <label className="text-xs uppercase tracking-[0.2em] text-sky-300">Update (EN)</label>
-            <textarea
-              value={current.latestUpdate.en}
-              onChange={(event) =>
-                setCurrent({ ...current, latestUpdate: { ...current.latestUpdate, en: event.target.value } })
-              }
-              className="mt-2 w-full rounded-2xl border border-white/10 bg-sky-900 px-3 py-2 text-sm text-white"
-            />
-          </div>
-          <div className="md:col-span-2">
-            <ImageUploadField
-              label="Image"
-              value={current.image}
-              onChange={(value) => setCurrent({ ...current, image: value })}
-            />
-          </div>
-        </div>
-        <div className="mt-6 flex gap-3">
-          <button className="rounded-full bg-yellow-500 px-4 py-2 text-xs font-semibold text-sky-950" type="submit">
-            {copy.admin.ministries.add}
-          </button>
-          {editingId ? (
-            <button
-              type="button"
-              onClick={() => {
+          <button
+            type="button"
+            onClick={() => {
+              if (showForm) {
+                setShowForm(false);
                 setEditingId(null);
                 setCurrent(emptyMinistry);
-              }}
-              className="rounded-full border border-white/20 px-4 py-2 text-xs text-white"
-            >
-              Reset
-            </button>
-          ) : null}
+                return;
+              }
+              setEditingId(null);
+              setCurrent(emptyMinistry);
+              setShowForm(true);
+            }}
+            className="rounded-full bg-yellow-500 px-4 py-2 text-xs font-semibold text-sky-950"
+          >
+            {showForm ? "Close form" : copy.admin.ministries.add}
+          </button>
         </div>
-      </form>
+      </div>
 
       <div className="space-y-4">
         {items.map((item) => (
@@ -234,6 +146,141 @@ export default function MinistriesManager({ locale }: { locale: string }) {
           </div>
         ))}
       </div>
+
+      {showForm ? (
+        <form onSubmit={handleSubmit} className="rounded-3xl border border-white/10 bg-sky-900/70 p-6">
+          <div className="flex items-center justify-between">
+            <p className="text-xs uppercase tracking-[0.3em] text-sky-400">
+              {editingId ? copy.admin.ministries.edit : copy.admin.ministries.add}
+            </p>
+            <button
+              type="button"
+              onClick={() => {
+                setShowForm(false);
+                setEditingId(null);
+                setCurrent(emptyMinistry);
+              }}
+              className="rounded-full border border-white/20 px-4 py-2 text-xs text-white"
+            >
+              Close
+            </button>
+          </div>
+          <div className="mt-4 grid gap-4 md:grid-cols-2">
+            <div>
+              <label className="text-xs uppercase tracking-[0.2em] text-sky-300">{copy.admin.ministries.label} (FR)</label>
+              <input
+                value={current.name.fr}
+                onChange={(event) => setCurrent({ ...current, name: { ...current.name, fr: event.target.value } })}
+                className="mt-2 w-full rounded-2xl border border-white/10 bg-sky-900 px-3 py-2 text-sm text-white"
+              />
+            </div>
+            <div>
+              <label className="text-xs uppercase tracking-[0.2em] text-sky-300">{copy.admin.ministries.label} (EN)</label>
+              <input
+                value={current.name.en}
+                onChange={(event) => setCurrent({ ...current, name: { ...current.name, en: event.target.value } })}
+                className="mt-2 w-full rounded-2xl border border-white/10 bg-sky-900 px-3 py-2 text-sm text-white"
+              />
+            </div>
+            <div>
+              <label className="text-xs uppercase tracking-[0.2em] text-sky-300">Resume (FR)</label>
+              <textarea
+                value={current.summary.fr}
+                onChange={(event) => setCurrent({ ...current, summary: { ...current.summary, fr: event.target.value } })}
+                className="mt-2 w-full rounded-2xl border border-white/10 bg-sky-900 px-3 py-2 text-sm text-white"
+              />
+            </div>
+            <div>
+              <label className="text-xs uppercase tracking-[0.2em] text-sky-300">Summary (EN)</label>
+              <textarea
+                value={current.summary.en}
+                onChange={(event) => setCurrent({ ...current, summary: { ...current.summary, en: event.target.value } })}
+                className="mt-2 w-full rounded-2xl border border-white/10 bg-sky-900 px-3 py-2 text-sm text-white"
+              />
+            </div>
+            <div>
+              <label className="text-xs uppercase tracking-[0.2em] text-sky-300">{copy.admin.ministries.leader} (FR)</label>
+              <input
+                value={current.leader.fr}
+                onChange={(event) => setCurrent({ ...current, leader: { ...current.leader, fr: event.target.value } })}
+                className="mt-2 w-full rounded-2xl border border-white/10 bg-sky-900 px-3 py-2 text-sm text-white"
+              />
+            </div>
+            <div>
+              <label className="text-xs uppercase tracking-[0.2em] text-sky-300">Leader (EN)</label>
+              <input
+                value={current.leader.en}
+                onChange={(event) => setCurrent({ ...current, leader: { ...current.leader, en: event.target.value } })}
+                className="mt-2 w-full rounded-2xl border border-white/10 bg-sky-900 px-3 py-2 text-sm text-white"
+              />
+            </div>
+            <div>
+              <label className="text-xs uppercase tracking-[0.2em] text-sky-300">Horaire (FR)</label>
+              <input
+                value={current.meetingTime.fr}
+                onChange={(event) =>
+                  setCurrent({ ...current, meetingTime: { ...current.meetingTime, fr: event.target.value } })
+                }
+                className="mt-2 w-full rounded-2xl border border-white/10 bg-sky-900 px-3 py-2 text-sm text-white"
+              />
+            </div>
+            <div>
+              <label className="text-xs uppercase tracking-[0.2em] text-sky-300">Meeting (EN)</label>
+              <input
+                value={current.meetingTime.en}
+                onChange={(event) =>
+                  setCurrent({ ...current, meetingTime: { ...current.meetingTime, en: event.target.value } })
+                }
+                className="mt-2 w-full rounded-2xl border border-white/10 bg-sky-900 px-3 py-2 text-sm text-white"
+              />
+            </div>
+            <div className="md:col-span-2">
+              <label className="text-xs uppercase tracking-[0.2em] text-sky-300">Update (FR)</label>
+              <textarea
+                value={current.latestUpdate.fr}
+                onChange={(event) =>
+                  setCurrent({ ...current, latestUpdate: { ...current.latestUpdate, fr: event.target.value } })
+                }
+                className="mt-2 w-full rounded-2xl border border-white/10 bg-sky-900 px-3 py-2 text-sm text-white"
+              />
+            </div>
+            <div className="md:col-span-2">
+              <label className="text-xs uppercase tracking-[0.2em] text-sky-300">Update (EN)</label>
+              <textarea
+                value={current.latestUpdate.en}
+                onChange={(event) =>
+                  setCurrent({ ...current, latestUpdate: { ...current.latestUpdate, en: event.target.value } })
+                }
+                className="mt-2 w-full rounded-2xl border border-white/10 bg-sky-900 px-3 py-2 text-sm text-white"
+              />
+            </div>
+            <div className="md:col-span-2">
+              <ImageUploadField
+                label="Image"
+                value={current.image}
+                onChange={(value) => setCurrent({ ...current, image: value })}
+              />
+            </div>
+          </div>
+          <div className="mt-6 flex gap-3">
+            <button className="rounded-full bg-yellow-500 px-4 py-2 text-xs font-semibold text-sky-950" type="submit">
+              {copy.admin.ministries.add}
+            </button>
+            {editingId ? (
+              <button
+                type="button"
+                onClick={() => {
+                  setEditingId(null);
+                  setCurrent(emptyMinistry);
+                }}
+                className="rounded-full border border-white/20 px-4 py-2 text-xs text-white"
+              >
+                Reset
+              </button>
+            ) : null}
+          </div>
+        </form>
+      ) : null}
     </div>
   );
 }
