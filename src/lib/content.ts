@@ -109,6 +109,33 @@ export type MessageDoc = {
   createdAt: string;
 };
 
+export type PrayerSubjectDoc = {
+  _id: ObjectId;
+  title: LocalizedText;
+  description?: LocalizedText;
+  active: boolean;
+  createdAt?: string;
+  updatedAt?: string;
+};
+
+export type PrayerParticipantDoc = {
+  _id: ObjectId;
+  subjectId: string;
+  name: string;
+  email: string;
+  whatsapp: string;
+  createdAt: string;
+};
+
+export type PrayerMessageDoc = {
+  _id: ObjectId;
+  subjectId: string;
+  title?: string;
+  text: string;
+  createdAt: string;
+  senderRole: "admin";
+};
+
 const pick = (value: LocalizedText | undefined, locale: Locale) => {
   if (!value) return "";
   return value[locale] || value.fr || "";

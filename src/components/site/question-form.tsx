@@ -23,6 +23,7 @@ export default function QuestionForm({
 }) {
   const { data: session } = useSession();
   const [question, setQuestion] = useState("");
+  const [isPublic, setIsPublic] = useState(true);
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (event: React.FormEvent) => {
@@ -35,7 +36,8 @@ export default function QuestionForm({
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         questionText: question,
-        isAnonymous: !session
+        isAnonymous: !session,
+        isPublic
       })
     });
 
@@ -55,6 +57,34 @@ export default function QuestionForm({
         placeholder={labels.formPlaceholder}
         className="mt-3 w-full rounded-2xl border border-sky-900/10 bg-white px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-yellow-400"
       />
+      
+      <div className="mt-4 space-y-2">
+        <label className="flex items-center gap-3 cursor-pointer">
+          <input
+            type="radio"
+            name="visibility"
+            checked={isPublic}
+            onChange={() => setIsPublic(true)}
+            className="h-4 w-4 text-sky-900"
+          />
+          <span className="text-sm text-sky-950">
+            <strong>Public</strong> - La réponse sera visible par tous / Answer will be visible to everyone
+          </span>
+        </label>
+        <label className="flex items-center gap-3 cursor-pointer">
+          <input
+            type="radio"
+            name="visibility"
+            checked={!isPublic}
+            onChange={() => setIsPublic(false)}
+            className="h-4 w-4 text-sky-900"
+          />
+          <span className="text-sm text-sky-950">
+            <strong>Privé/Chat</strong> - Discussion privée avec l'équipe / Private chat with team
+          </span>
+        </label>
+      </div>
+      
       <p className="mt-3 text-xs text-sky-900/60">{labels.formNote}</p>
       {!session ? (
         <p className="mt-2 text-xs text-sky-900/60">
@@ -74,7 +104,7 @@ export default function QuestionForm({
       <button
         type="submit"
         disabled={loading}
-        className="mt-6 rounded-full bg-sky-900 px-6 py-3 text-sm font-semibold text-white"
+        className="mt-6 rounded-full bg-sky-900 px-6 py-3 text-sm font-semibold text-white hover:bg-sky-800 disabled:opacity-50"
       >
         {loading ? "..." : labels.submit}
       </button>

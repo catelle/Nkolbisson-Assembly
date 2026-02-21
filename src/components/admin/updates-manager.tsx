@@ -191,107 +191,129 @@ export default function UpdatesManager({ locale }: { locale: string }) {
                 className="mt-2 w-full rounded-2xl border border-white/10 bg-sky-900 px-3 py-2 text-sm text-white"
               />
             </div>
-          <div>
-            <label className="text-xs uppercase tracking-[0.2em] text-sky-300">Title (EN)</label>
-            <input
-              value={current.title.en}
-              onChange={(event) => setCurrent({ ...current, title: { ...current.title, en: event.target.value } })}
-              className="mt-2 w-full rounded-2xl border border-white/10 bg-sky-900 px-3 py-2 text-sm text-white"
-            />
-          </div>
-          <div>
-            <label className="text-xs uppercase tracking-[0.2em] text-sky-300">Slug</label>
-            <input
-              value={current.slug}
-              onChange={(event) => setCurrent({ ...current, slug: event.target.value })}
-              className="mt-2 w-full rounded-2xl border border-white/10 bg-sky-900 px-3 py-2 text-sm text-white"
-            />
-          </div>
-          <div>
-            <label className="text-xs uppercase tracking-[0.2em] text-sky-300">Status</label>
-            <select
-              value={current.status}
-              onChange={(event) => setCurrent({ ...current, status: event.target.value as "draft" | "published" })}
-              className="mt-2 w-full rounded-2xl border border-white/10 bg-sky-900 px-3 py-2 text-sm text-white"
-            >
-              <option value="draft">Draft</option>
-              <option value="published">Published</option>
-            </select>
-          </div>
-          <div className="md:col-span-2">
-            <label className="text-xs uppercase tracking-[0.2em] text-sky-300">Resume (FR)</label>
-            <textarea
-              value={current.excerpt.fr}
-              onChange={(event) => setCurrent({ ...current, excerpt: { ...current.excerpt, fr: event.target.value } })}
-              className="mt-2 w-full rounded-2xl border border-white/10 bg-sky-900 px-3 py-2 text-sm text-white"
-            />
-          </div>
-          <div className="md:col-span-2">
-            <label className="text-xs uppercase tracking-[0.2em] text-sky-300">Excerpt (EN)</label>
-            <textarea
-              value={current.excerpt.en}
-              onChange={(event) => setCurrent({ ...current, excerpt: { ...current.excerpt, en: event.target.value } })}
-              className="mt-2 w-full rounded-2xl border border-white/10 bg-sky-900 px-3 py-2 text-sm text-white"
-            />
-          </div>
-          <div>
-            <label className="text-xs uppercase tracking-[0.2em] text-sky-300">Tags FR (comma)</label>
-            <input
-              value={current.tags.fr.join(", ")}
-              onChange={(event) =>
-                setCurrent({ ...current, tags: { ...current.tags, fr: event.target.value.split(",").map((t) => t.trim()).filter(Boolean) } })
-              }
-              className="mt-2 w-full rounded-2xl border border-white/10 bg-sky-900 px-3 py-2 text-sm text-white"
-            />
-          </div>
-          <div>
-            <label className="text-xs uppercase tracking-[0.2em] text-sky-300">Tags EN (comma)</label>
-            <input
-              value={current.tags.en.join(", ")}
-              onChange={(event) =>
-                setCurrent({ ...current, tags: { ...current.tags, en: event.target.value.split(",").map((t) => t.trim()).filter(Boolean) } })
-              }
-              className="mt-2 w-full rounded-2xl border border-white/10 bg-sky-900 px-3 py-2 text-sm text-white"
-            />
-          </div>
-          <div className="md:col-span-2">
-            <ImageUploadField
-              label="Cover image"
-              value={current.cover}
-              onChange={(value) => setCurrent({ ...current, cover: value })}
-            />
-          </div>
-          <div>
-            <label className="text-xs uppercase tracking-[0.2em] text-sky-300">Published at</label>
-            <input
-              type="date"
-              value={current.publishedAt}
-              onChange={(event) => setCurrent({ ...current, publishedAt: event.target.value })}
-              className="mt-2 w-full rounded-2xl border border-white/10 bg-sky-900 px-3 py-2 text-sm text-white"
-            />
-          </div>
-          <div className="md:col-span-2">
-            <label className="text-xs uppercase tracking-[0.2em] text-sky-300">Content FR (line per paragraph)</label>
-            <textarea
-              value={current.content.fr.join("\n")}
-              onChange={(event) =>
-                setCurrent({ ...current, content: { ...current.content, fr: event.target.value.split("\n").filter(Boolean) } })
-              }
-              rows={4}
-              className="mt-2 w-full rounded-2xl border border-white/10 bg-sky-900 px-3 py-2 text-sm text-white"
-            />
-          </div>
-          <div className="md:col-span-2">
-            <label className="text-xs uppercase tracking-[0.2em] text-sky-300">Content EN (line per paragraph)</label>
-            <textarea
-              value={current.content.en.join("\n")}
-              onChange={(event) =>
-                setCurrent({ ...current, content: { ...current.content, en: event.target.value.split("\n").filter(Boolean) } })
-              }
-              rows={4}
-              className="mt-2 w-full rounded-2xl border border-white/10 bg-sky-900 px-3 py-2 text-sm text-white"
-            />
-          </div>
+            <div>
+              <label className="text-xs uppercase tracking-[0.2em] text-sky-300">Title (EN)</label>
+              <input
+                value={current.title.en}
+                onChange={(event) => setCurrent({ ...current, title: { ...current.title, en: event.target.value } })}
+                className="mt-2 w-full rounded-2xl border border-white/10 bg-sky-900 px-3 py-2 text-sm text-white"
+              />
+            </div>
+            <div>
+              <label className="text-xs uppercase tracking-[0.2em] text-sky-300">Slug</label>
+              <input
+                value={current.slug}
+                onChange={(event) => setCurrent({ ...current, slug: event.target.value })}
+                className="mt-2 w-full rounded-2xl border border-white/10 bg-sky-900 px-3 py-2 text-sm text-white"
+              />
+            </div>
+            <div>
+              <label className="text-xs uppercase tracking-[0.2em] text-sky-300">Status</label>
+              <select
+                value={current.status}
+                onChange={(event) => setCurrent({ ...current, status: event.target.value as "draft" | "published" })}
+                className="mt-2 w-full rounded-2xl border border-white/10 bg-sky-900 px-3 py-2 text-sm text-white"
+              >
+                <option value="draft">Draft</option>
+                <option value="published">Published</option>
+              </select>
+            </div>
+            <div className="md:col-span-2">
+              <label className="text-xs uppercase tracking-[0.2em] text-sky-300">Resume (FR)</label>
+              <textarea
+                value={current.excerpt.fr}
+                onChange={(event) =>
+                  setCurrent({ ...current, excerpt: { ...current.excerpt, fr: event.target.value } })
+                }
+                className="mt-2 w-full rounded-2xl border border-white/10 bg-sky-900 px-3 py-2 text-sm text-white"
+              />
+            </div>
+            <div className="md:col-span-2">
+              <label className="text-xs uppercase tracking-[0.2em] text-sky-300">Excerpt (EN)</label>
+              <textarea
+                value={current.excerpt.en}
+                onChange={(event) =>
+                  setCurrent({ ...current, excerpt: { ...current.excerpt, en: event.target.value } })
+                }
+                className="mt-2 w-full rounded-2xl border border-white/10 bg-sky-900 px-3 py-2 text-sm text-white"
+              />
+            </div>
+            <div>
+              <label className="text-xs uppercase tracking-[0.2em] text-sky-300">Tags FR (comma)</label>
+              <input
+                value={current.tags.fr.join(", ")}
+                onChange={(event) =>
+                  setCurrent({
+                    ...current,
+                    tags: {
+                      ...current.tags,
+                      fr: event.target.value.split(",").map((t) => t.trim()).filter(Boolean)
+                    }
+                  })
+                }
+                className="mt-2 w-full rounded-2xl border border-white/10 bg-sky-900 px-3 py-2 text-sm text-white"
+              />
+            </div>
+            <div>
+              <label className="text-xs uppercase tracking-[0.2em] text-sky-300">Tags EN (comma)</label>
+              <input
+                value={current.tags.en.join(", ")}
+                onChange={(event) =>
+                  setCurrent({
+                    ...current,
+                    tags: {
+                      ...current.tags,
+                      en: event.target.value.split(",").map((t) => t.trim()).filter(Boolean)
+                    }
+                  })
+                }
+                className="mt-2 w-full rounded-2xl border border-white/10 bg-sky-900 px-3 py-2 text-sm text-white"
+              />
+            </div>
+            <div className="md:col-span-2">
+              <ImageUploadField
+                label="Cover image"
+                value={current.cover}
+                onChange={(value) => setCurrent({ ...current, cover: value })}
+              />
+            </div>
+            <div>
+              <label className="text-xs uppercase tracking-[0.2em] text-sky-300">Published at</label>
+              <input
+                type="date"
+                value={current.publishedAt}
+                onChange={(event) => setCurrent({ ...current, publishedAt: event.target.value })}
+                className="mt-2 w-full rounded-2xl border border-white/10 bg-sky-900 px-3 py-2 text-sm text-white"
+              />
+            </div>
+            <div className="md:col-span-2">
+              <label className="text-xs uppercase tracking-[0.2em] text-sky-300">Content FR (line per paragraph)</label>
+              <textarea
+                value={current.content.fr.join("\n")}
+                onChange={(event) =>
+                  setCurrent({
+                    ...current,
+                    content: { ...current.content, fr: event.target.value.split("\n").filter(Boolean) }
+                  })
+                }
+                rows={4}
+                className="mt-2 w-full rounded-2xl border border-white/10 bg-sky-900 px-3 py-2 text-sm text-white"
+              />
+            </div>
+            <div className="md:col-span-2">
+              <label className="text-xs uppercase tracking-[0.2em] text-sky-300">Content EN (line per paragraph)</label>
+              <textarea
+                value={current.content.en.join("\n")}
+                onChange={(event) =>
+                  setCurrent({
+                    ...current,
+                    content: { ...current.content, en: event.target.value.split("\n").filter(Boolean) }
+                  })
+                }
+                rows={4}
+                className="mt-2 w-full rounded-2xl border border-white/10 bg-sky-900 px-3 py-2 text-sm text-white"
+              />
+            </div>
           </div>
           <div className="mt-6 flex gap-3">
             <button className="rounded-full bg-yellow-500 px-4 py-2 text-xs font-semibold text-sky-950" type="submit">

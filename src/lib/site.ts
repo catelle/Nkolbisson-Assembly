@@ -20,7 +20,8 @@ const siteByLocale: Record<Locale, {
       { href: "ministries", label: "Ministeres" },
       { href: "bible-stories", label: "Histoires bibliques" },
       { href: "news", label: "Actualites" },
-      { href: "questions", label: "Q&R" }
+      { href: "questions", label: "Q&R" },
+      { href: "prayer-line", label: "Hotline de priere" }
     ],
     adminNav: [
       { href: "/admin", label: "Tableau de bord" },
@@ -29,6 +30,7 @@ const siteByLocale: Record<Locale, {
       { href: "/admin/stories", label: "Histoires" },
       { href: "/admin/updates", label: "Actualites" },
       { href: "/admin/questions", label: "Questions" },
+      { href: "/admin/prayer-line", label: "Hotline de priere" },
       { href: "/admin/theme", label: "Theme du mois" },
       { href: "/admin/media", label: "Medias" },
       { href: "/admin/users", label: "Utilisateurs" }
@@ -46,7 +48,8 @@ const siteByLocale: Record<Locale, {
       { href: "ministries", label: "Ministries" },
       { href: "bible-stories", label: "Bible stories" },
       { href: "news", label: "News" },
-      { href: "questions", label: "Q&A" }
+      { href: "questions", label: "Q&A" },
+      { href: "prayer-line", label: "Hot prayer line" }
     ],
     adminNav: [
       { href: "/admin", label: "Dashboard" },
@@ -55,6 +58,7 @@ const siteByLocale: Record<Locale, {
       { href: "/admin/stories", label: "Stories" },
       { href: "/admin/updates", label: "News" },
       { href: "/admin/questions", label: "Questions" },
+      { href: "/admin/prayer-line", label: "Prayer line" },
       { href: "/admin/theme", label: "Theme of month" },
       { href: "/admin/media", label: "Media" },
       { href: "/admin/users", label: "Users" }

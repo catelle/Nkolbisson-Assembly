@@ -24,7 +24,7 @@ export async function GET() {
 
 export async function POST(request: Request) {
   const session = await getSession();
-  const body = (await request.json()) as { questionText?: string; isAnonymous?: boolean };
+  const body = (await request.json()) as { questionText?: string; isAnonymous?: boolean; isPublic?: boolean };
 
   if (!body.questionText) {
     return NextResponse.json({ error: "Missing question" }, { status: 400 });
@@ -37,7 +37,7 @@ export async function POST(request: Request) {
     _id: new ObjectId(),
     questionText: body.questionText,
     createdAt: now,
-    status: "new",
+    status: body.isPublic === false ? "private" : "new",
     userId: session?.user?.id,
     isAnonymous: !session || body.isAnonymous === true,
     publicAnswer: ""

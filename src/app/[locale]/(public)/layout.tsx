@@ -1,5 +1,6 @@
 import SiteHeader from "@/components/site/site-header";
 import SiteFooter from "@/components/site/site-footer";
+import FloatingChatButton from "@/components/site/floating-chat-button";
 
 export default async function PublicLayout({
   children,
@@ -14,6 +15,7 @@ export default async function PublicLayout({
       <SiteHeader locale={locale} />
       <main className="flex-1">{children}</main>
       <SiteFooter locale={locale} />
+      <FloatingChatButton locale={locale} />
     </div>
   );
 }

@@ -7,6 +7,7 @@ const copy: Record<Locale, {
     readingTime: string;
     backToStories: string;
     backToNews: string;
+    backToHome: string;
     seeAllNews: string;
     fullCalendar: string;
     exploreMinistries: string;
@@ -104,6 +105,23 @@ const copy: Record<Locale, {
     title: string;
     description: string;
   };
+  prayerLinePage: {
+    label: string;
+    title: string;
+    description: string;
+    subjectsTitle: string;
+    join: string;
+    nameLabel: string;
+    emailLabel: string;
+    whatsappLabel: string;
+    register: string;
+    registered: string;
+    alreadyRegistered: string;
+    mySubjects: string;
+    messagesTitle: string;
+    noMessages: string;
+    noSubjects: string;
+  };
   admin: {
     space: string;
     loginTitle: string;
@@ -187,6 +205,26 @@ const copy: Record<Locale, {
       edit: string;
       remove: string;
     };
+    prayerLine: {
+      label: string;
+      title: string;
+      addSubject: string;
+      editSubject: string;
+      removeSubject: string;
+      subjects: string;
+      descriptionLabel: string;
+      activeLabel: string;
+      participants: string;
+      messageTitle: string;
+      messageSubject: string;
+      messageBody: string;
+      messagePlaceholder: string;
+      send: string;
+      subjectLabel: string;
+      nameLabel: string;
+      emailLabel: string;
+      whatsappLabel: string;
+    };
   };
 }> = {
   fr: {
@@ -196,6 +234,7 @@ const copy: Record<Locale, {
       readingTime: "min de lecture",
       backToStories: "Retour aux histoires",
       backToNews: "Retour aux actualites",
+      backToHome: "Retour a l'accueil",
       seeAllNews: "Voir toutes les nouvelles",
       fullCalendar: "Calendrier complet",
       exploreMinistries: "Explorer les ministeres",
@@ -303,6 +342,23 @@ const copy: Record<Locale, {
       title: "Des reponses pour edifier",
       description: "Les questions anonymes avec reponses publiees pour benir la communaute."
     },
+    prayerLinePage: {
+      label: "Hotline de priere",
+      title: "Hotline de priere et jeune",
+      description: "Choisissez un sujet de priere et de jeune, puis inscrivez-vous pour recevoir les mises a jour.",
+      subjectsTitle: "Sujets de priere",
+      join: "S'inscrire",
+      nameLabel: "Nom complet",
+      emailLabel: "Email",
+      whatsappLabel: "Numero WhatsApp",
+      register: "Valider l'inscription",
+      registered: "Inscription reussie.",
+      alreadyRegistered: "Deja inscrit a ce sujet.",
+      mySubjects: "Mes sujets",
+      messagesTitle: "Messages",
+      noMessages: "Aucun message pour le moment.",
+      noSubjects: "Aucun sujet disponible pour le moment."
+    },
     admin: {
       space: "Espace admin",
       loginTitle: "Connexion",
@@ -379,6 +435,26 @@ const copy: Record<Locale, {
         title: "Bibliotheque d'images",
         upload: "Importer"
       },
+      prayerLine: {
+        label: "Hotline de priere",
+        title: "Gestion des sujets",
+        addSubject: "Ajouter un sujet",
+        editSubject: "Modifier",
+        removeSubject: "Supprimer",
+        subjects: "Sujets",
+        descriptionLabel: "Description",
+        activeLabel: "Actif",
+        participants: "Participants",
+        messageTitle: "Message global",
+        messageSubject: "Objet de l'email",
+        messageBody: "Message",
+        messagePlaceholder: "Ecrivez votre message...",
+        send: "Envoyer aux participants",
+        subjectLabel: "Sujet",
+        nameLabel: "Nom",
+        emailLabel: "Email",
+        whatsappLabel: "WhatsApp"
+      },
       users: {
         label: "Utilisateurs",
         title: "Acces et roles",
@@ -395,6 +471,7 @@ const copy: Record<Locale, {
       readingTime: "min read",
       backToStories: "Back to stories",
       backToNews: "Back to news",
+      backToHome: "Back to home",
       seeAllNews: "See all news",
       fullCalendar: "Full calendar",
       exploreMinistries: "Explore ministries",
@@ -496,6 +573,23 @@ const copy: Record<Locale, {
       title: "Answers to build faith",
       description: "Anonymous questions with public answers that bless the community."
     },
+    prayerLinePage: {
+      label: "Hot prayer line",
+      title: "Hot prayer and fasting line",
+      description: "Select a prayer and fasting subject, then register to receive updates.",
+      subjectsTitle: "Prayer subjects",
+      join: "Join",
+      nameLabel: "Full name",
+      emailLabel: "Email",
+      whatsappLabel: "WhatsApp number",
+      register: "Confirm registration",
+      registered: "Registration completed.",
+      alreadyRegistered: "Already registered for this subject.",
+      mySubjects: "My subjects",
+      messagesTitle: "Messages",
+      noMessages: "No messages yet.",
+      noSubjects: "No subjects available right now."
+    },
     admin: {
       space: "Admin space",
       loginTitle: "Sign in",
@@ -571,6 +665,26 @@ const copy: Record<Locale, {
         label: "Media",
         title: "Image library",
         upload: "Upload"
+      },
+      prayerLine: {
+        label: "Prayer line",
+        title: "Subject management",
+        addSubject: "Add subject",
+        editSubject: "Edit",
+        removeSubject: "Delete",
+        subjects: "Subjects",
+        descriptionLabel: "Description",
+        activeLabel: "Active",
+        participants: "Participants",
+        messageTitle: "Global message",
+        messageSubject: "Email subject",
+        messageBody: "Message",
+        messagePlaceholder: "Write your message...",
+        send: "Send to participants",
+        subjectLabel: "Subject",
+        nameLabel: "Name",
+        emailLabel: "Email",
+        whatsappLabel: "WhatsApp"
       },
       users: {
         label: "Users",
