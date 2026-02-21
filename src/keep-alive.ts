@@ -1,5 +1,5 @@
 import { getDb } from "./lib/mongo";
-import { supabaseServer, supabaseBucket } from "./lib/supabase";
+import { supabaseServer } from "./lib/supabase";
 
 async function keepAlive() {
   console.log(`[${new Date().toISOString()}] Running keep-alive...`);

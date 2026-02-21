@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { usePathname } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { getLocaleFromPathname } from "@/lib/locale";
@@ -79,24 +79,24 @@ export default function PrayerLinePage() {
     [registrations]
   );
 
-  const loadSubjects = async () => {
+  const loadSubjects = useCallback(async () => {
     setLoading(true);
     try {
       const res = await fetch("/api/prayer/subjects", { cache: "no-store" });
       if (!res.ok) return;
       const data = (await res.json()) as PrayerSubject[];
       setSubjects(data);
-      if (!selectedSubject && data.length) {
-        setSelectedSubject(data[0]);
+      if (data.length) {
+        setSelectedSubject((prev) => prev ?? data[0]);
       }
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
   useEffect(() => {
     loadSubjects();
-  }, []);
+  }, [loadSubjects]);
 
   useEffect(() => {
     setRegistrations(loadRegistrations());

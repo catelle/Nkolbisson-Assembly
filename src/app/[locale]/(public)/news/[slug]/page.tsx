@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
 import { ArrowLeft, Calendar } from "lucide-react";
 import { getCopy } from "@/lib/copy";

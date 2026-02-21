@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
@@ -38,22 +38,22 @@ export default function ChatPage() {
   const [showNewQuestion, setShowNewQuestion] = useState(false);
   const [newQuestion, setNewQuestion] = useState("");
 
-  const loadQuestions = async () => {
+  const loadQuestions = useCallback(async () => {
     const res = await fetch("/api/questions", { cache: "no-store" });
     if (!res.ok) return;
     const data = await res.json();
     setQuestions(data);
-    if (data.length && !selected) {
-      setSelected(data[0]);
+    if (data.length) {
+      setSelected((prev) => prev ?? data[0]);
     }
-  };
+  }, []);
 
-  const loadMessages = async (questionId: string) => {
+  const loadMessages = useCallback(async (questionId: string) => {
     const res = await fetch(`/api/questions/${questionId}/messages`, { cache: "no-store" });
     if (!res.ok) return;
     const data = await res.json();
     setMessages(data);
-  };
+  }, []);
 
   useEffect(() => {
     if (status === "unauthenticated") {
@@ -63,7 +63,7 @@ export default function ChatPage() {
     if (status === "authenticated") {
       loadQuestions();
     }
-  }, [locale, router, status]);
+  }, [locale, router, status, loadQuestions]);
 
   useEffect(() => {
     if (selected) {
@@ -71,7 +71,7 @@ export default function ChatPage() {
       const interval = setInterval(() => loadMessages(selected._id), 5000);
       return () => clearInterval(interval);
     }
-  }, [selected]);
+  }, [selected, loadMessages]);
 
   const handleSend = async () => {
     if (!selected || !message.trim()) return;

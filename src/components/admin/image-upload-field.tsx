@@ -1,6 +1,7 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
-import { useId, useState, useEffect } from "react";
+import { useCallback, useId, useState, useEffect } from "react";
 
 type Props = {
   label: string;
@@ -23,7 +24,7 @@ export default function ImageUploadField({ label, value = "", onChange, helper }
   const [media, setMedia] = useState<MediaFile[]>([]);
   const [loadingMedia, setLoadingMedia] = useState(false);
 
-  const loadMedia = async () => {
+  const loadMedia = useCallback(async () => {
     setLoadingMedia(true);
     try {
       const res = await fetch("/api/media");
@@ -35,13 +36,13 @@ export default function ImageUploadField({ label, value = "", onChange, helper }
       console.error("Failed to load media", err);
     }
     setLoadingMedia(false);
-  };
+  }, []);
 
   useEffect(() => {
     if (showLibrary && media.length === 0) {
       loadMedia();
     }
-  }, [showLibrary]);
+  }, [showLibrary, media.length, loadMedia]);
 
   const handleFile = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];

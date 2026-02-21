@@ -80,7 +80,7 @@ export default function QuestionForm({
             className="h-4 w-4 text-sky-900"
           />
           <span className="text-sm text-sky-950">
-            <strong>Privé/Chat</strong> - Discussion privée avec l'équipe / Private chat with team
+            <strong>Privé/Chat</strong> - Discussion privée avec l&apos;équipe / Private chat with team
           </span>
         </label>
       </div>

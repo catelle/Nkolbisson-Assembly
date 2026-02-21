@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { ObjectId } from "mongodb";
 import { getDb } from "@/lib/mongo";
-import { getSession, requireAdmin } from "@/lib/auth-helpers";
+import { getSession } from "@/lib/auth-helpers";
 import type { QuestionDoc } from "@/lib/content";
 
 export async function GET() {

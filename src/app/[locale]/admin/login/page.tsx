@@ -44,7 +44,7 @@ export default function AdminLoginPage() {
       }
 
       setError(copy.admin.loginError);
-    } catch (err) {
+    } catch {
       setError(copy.admin.loginError);
     } finally {
       setLoading(false);

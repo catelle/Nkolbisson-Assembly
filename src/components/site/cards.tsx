@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
 import type { Event, Ministry, Story, Update } from "@/lib/types";
 

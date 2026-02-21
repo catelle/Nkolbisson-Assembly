@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import type { StoryBlock } from "@/lib/types";
 
 export default function StoryBlocks({ blocks }: { blocks: StoryBlock[] }) {

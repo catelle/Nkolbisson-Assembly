@@ -2,13 +2,13 @@ import { NextResponse } from "next/server";
 import { getDb } from "@/lib/mongo";
 import { requireAdmin, getSession } from "@/lib/auth-helpers";
 import type { EventDoc } from "@/lib/content";
-import { ObjectId } from "mongodb";
+import { ObjectId, type Filter } from "mongodb";
 
 export async function GET() {
   const session = await getSession();
   const db = await getDb();
   const collection = db.collection<EventDoc>("events");
-  const filter = session?.user?.role === "admin" ? {} : { status: "published" };
+  const filter: Filter<EventDoc> = session?.user?.role === "admin" ? {} : { status: "published" };
   const docs = await collection.find(filter).sort({ startAt: 1 }).toArray();
   return NextResponse.json(docs);
 }

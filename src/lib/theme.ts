@@ -1,5 +1,5 @@
 import { getDb } from "@/lib/mongo";
-import { getLocale, type Locale } from "@/lib/locale";
+import { getLocale } from "@/lib/locale";
 import { unstable_noStore as noStore } from "next/cache";
 
 export async function getTheme(locale?: string) {

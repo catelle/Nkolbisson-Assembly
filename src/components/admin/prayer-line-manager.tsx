@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { getCopy } from "@/lib/copy";
 
 type LocalizedText = {
@@ -63,28 +63,30 @@ export default function PrayerLineManager({ locale }: { locale: string }) {
     return map;
   }, [subjects, locale]);
 
-  const loadSubjects = async () => {
+  const loadSubjects = useCallback(async () => {
     const res = await fetch("/api/prayer/subjects", { cache: "no-store" });
     if (!res.ok) return;
     const data = (await res.json()) as PrayerSubject[];
     setSubjects(data);
-    const stillSelected = data.some((subject) => subject._id === selectedSubjectId);
-    if (!stillSelected) {
-      setSelectedSubjectId(data[0]?._id || "");
-    }
-  };
+    setSelectedSubjectId((prev) => {
+      if (prev && data.some((subject) => subject._id === prev)) {
+        return prev;
+      }
+      return data[0]?._id || "";
+    });
+  }, []);
 
-  const loadParticipants = async (subjectId?: string) => {
+  const loadParticipants = useCallback(async (subjectId?: string) => {
     const url = subjectId ? `/api/prayer/participants?subjectId=${subjectId}` : "/api/prayer/participants";
     const res = await fetch(url, { cache: "no-store" });
     if (!res.ok) return;
     const data = (await res.json()) as PrayerParticipant[];
     setParticipants(data);
-  };
+  }, []);
 
   useEffect(() => {
     loadSubjects();
-  }, []);
+  }, [loadSubjects]);
 
   useEffect(() => {
     if (selectedSubjectId) {
@@ -92,7 +94,7 @@ export default function PrayerLineManager({ locale }: { locale: string }) {
     } else {
       loadParticipants();
     }
-  }, [selectedSubjectId]);
+  }, [selectedSubjectId, loadParticipants]);
 
   const resetForm = () => {
     setSubjectForm(emptySubject);

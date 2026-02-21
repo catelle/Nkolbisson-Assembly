@@ -24,8 +24,8 @@ export default function EventsList({
     noResults: string;
   };
 }) {
-  const safeEvents = Array.isArray(events) ? events : [];
-  const safeMinistries = Array.isArray(ministries) ? ministries : [];
+  const safeEvents = useMemo(() => (Array.isArray(events) ? events : []), [events]);
+  const safeMinistries = useMemo(() => (Array.isArray(ministries) ? ministries : []), [ministries]);
   const [query, setQuery] = useState("");
   const [ministry, setMinistry] = useState("all");
   const [timing, setTiming] = useState("upcoming");

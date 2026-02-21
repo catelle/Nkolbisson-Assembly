@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { ObjectId } from "mongodb";
+import { ObjectId, type Filter } from "mongodb";
 import { getDb } from "@/lib/mongo";
 import { requireAdmin, getSession } from "@/lib/auth-helpers";
 import type { StoryDoc } from "@/lib/content";
@@ -7,7 +7,7 @@ import type { StoryDoc } from "@/lib/content";
 export async function GET() {
   const session = await getSession();
   const db = await getDb();
-  const filter = session?.user?.role === "admin" ? {} : { status: "published" };
+  const filter: Filter<StoryDoc> = session?.user?.role === "admin" ? {} : { status: "published" };
   const docs = await db.collection<StoryDoc>("stories").find(filter).toArray();
   return NextResponse.json(docs);
 }
